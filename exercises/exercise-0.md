@@ -2,7 +2,7 @@
 
 ## Step 1: Fork the example Github project
 
-Before we start, you will need to fork the example Github project. This will allow you to run a couple of CircleCI builds because everyone gets a free 15 hour trial.
+Before we start, you will need to fork this Github project. This will allow you to run a couple of CircleCI builds because everyone gets a free 25 hour trial.
 
 ## Step 2: Get familiar with the CircleCI configuration
 
@@ -20,15 +20,26 @@ Push a minor change to the `master` branch in your forked repository. Now, Circl
 
 1. Go to: `https://circleci.com/dashboard`
 2. Login using your Github account
-3. Select the `Workflows` menu item on the left in the main menu
-4. Select the `master` branch in the list of branches.
-5. Wait for the list of workflows the appear on the right (this part of the UI is sometimes a bit slow)
-6. Select the workflow on the top of the list
+3. Select `Projects` menu item on the left in the main menu
 
-Now you will see a the status of your last workflow:
+![Workflow list](images/screenshot-projects.png "Projects")
+ 
+4. Select the `circleci` repository in the `Linux` tab
 
-<INSERT SCREENSHOT>
+![Workflow list](images/screenshot-select-repository.png "Select repository")
 
+5. Click on the `Start building` button.
+
+![Workflow list](images/screenshot-start-building.png "Start building")
+
+6. Select the `Workflows` menu item on the left in the main menu
+7. Select the `master` branch in the list of branches and wait for the list of workflows the appear on the right (this part of the UI is sometimes a bit slow)
+
+![Workflow list](images/screenshot-workflow-list.png "Workflow list")
+
+5. Select the workflow on the top of the list. Now you will see a the status of your last workflow:
+
+![Workflow run](images/screenshot-workflow-run.png "Workflow run")
 
 Click on one of the jobs to see the output of the individual steps. 
 

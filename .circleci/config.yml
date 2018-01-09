@@ -1,38 +1,39 @@
 version: 2
 
 jobs:
+  # Define the checkout job
   checkout:
     docker:
       - image: node:8.6.0
     steps:
+      # Using the `checkout` step, CircleCI will checkout your repository
       - checkout
+
+      # Using the `persist_to_workspace` step, CircleCI will store your changes for the next job
       - persist_to_workspace:
           root: ~/
           paths:
             - ./*
+
+  # Define the scala job
   scala:
     docker:
-      - image: openjdk:8
+      - image: circleci/openjdk:8-jdk
     steps:
+      # Using the `attach_workspace` step, CircleCI will restore your changes
       - attach_workspace:
           at: ~/
-      - run:
-          name: Install SBT
-          command: |
-            curl -L -o sbt.deb http://dl.bintray.com/sbt/debian/sbt-1.0.4.deb
-            dpkg -i sbt.deb
-            rm sbt.deb
-            apt-get update
-            apt-get install sbt
+      # Using the `run` step, one can execute arbitrary commands
       - run:
           name: Download Scala dependencies
           working_directory: backend/
-          command: sbt update
+          command: sbt -v update
       - run:
           name: Run Scala tests
           working_directory: backend/
           command: sbt test
 
+  # Define the deploy job
   deploy:
     docker:
       - image: node:8.6.0
@@ -44,8 +45,11 @@ jobs:
           command: bash .circleci/deploy.sh
 
 workflows:
+  # Use CircleCI API version 2
   version: 2
-  build_and_test:
+
+  # Define the `commit` workflow
+  commit:
     jobs:
       - checkout
       - scala:

@@ -14,7 +14,7 @@ object Main extends App with ExampleRoutes {
   implicit val executor = system.dispatcher
   implicit val materializer = ActorMaterializer()
 
-  Http(system).bindAndHandle(routes, "0.0.0.0", port = port).foreach(
+  Http(system).bindAndHandle(routes, "0.0.0.0", port).foreach(
     binding => system.log.info("Bound to " + binding.localAddress)
   )
 }
