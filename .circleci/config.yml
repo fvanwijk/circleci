@@ -23,11 +23,17 @@ jobs:
         # Using the `attach_workspace` step, CircleCI will restore your changes
         - attach_workspace:
             at: ~/
+        - restore_cache:
+            key: node-modules-{{ checksum "frontend/yarn.lock" }}
         # Using the `run` step, one can execute arbitrary commands
         - run:
             name: Download Node dependencies
             working_directory: frontend/
             command: yarn install
+        - save_cache:
+            key: node-modules-{{ checksum "frontend/yarn.lock" }}
+            paths:
+              - node_modules
         - run:
             name: Run Node tests
             working_directory: frontend/
