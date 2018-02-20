@@ -15,6 +15,24 @@ jobs:
           paths:
             - ./*
 
+  # Define the node job
+  node:
+      docker:
+        - image: node:8.6.0
+      steps:
+        # Using the `attach_workspace` step, CircleCI will restore your changes
+        - attach_workspace:
+            at: ~/
+        # Using the `run` step, one can execute arbitrary commands
+        - run:
+            name: Download Node dependencies
+            working_directory: frontend/
+            command: yarn install
+        - run:
+            name: Run Node tests
+            working_directory: frontend/
+            command: yarn test
+
   # Define the scala job
   scala:
     docker:
@@ -55,6 +73,10 @@ workflows:
       - scala:
           requires:
             - checkout
+      - node:
+          requires:
+            - checkout
       - deploy:
           requires:
             - scala
+            - node
