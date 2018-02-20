@@ -82,7 +82,11 @@ workflows:
       - node:
           requires:
             - checkout
-      - deploy:
+      - hold:
+          type: approval
           requires:
             - scala
             - node
+      - deploy:
+          requires:
+            - hold
